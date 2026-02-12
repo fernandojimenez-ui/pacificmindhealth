@@ -12,7 +12,8 @@
         "align": [ "wide", "full" ],
         "color": {
             "background": true,
-            "text": true
+            "text": true,
+            "gradients": true
         },
         "spacing": {
             "padding": true,
@@ -20,6 +21,14 @@
         }
     },
     "attributes": {
+        "style": {
+            "type": "object",
+            "default": {
+                "color": {
+                    "background": "#20B2AA"
+                }
+            }
+        },
         "minHeight": {
             "type": "string",
             "default": "40vh"
