@@ -28,6 +28,10 @@
             "type": "string",
             "default": "#FFF5EE"
         },
+        "waveHeight": {
+            "type": "string",
+            "default": "130px"
+        },
         "wavePosition": {
             "type": "string",
             "default": "bottom"

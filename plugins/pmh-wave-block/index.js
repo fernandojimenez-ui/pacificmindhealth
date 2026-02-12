@@ -9,6 +9,8 @@
 	var ToggleControl = components.ToggleControl;
 	var __experimentalUnitControl = components.__experimentalUnitControl;
 
+	var UnitControl = __experimentalUnitControl || components.TextControl;
+
 	var waveSvg = function ( color ) {
 		var encoded = encodeURIComponent(
 			"<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 98L50 92C100 86 200 74 300 50C400 26 500 -10 600 2C700 14 800 74 900 98C1000 122 1100 110 1150 104L1200 98V134H1150C1100 134 1000 134 900 134C800 134 700 134 600 134C500 134 400 134 300 134C200 134 100 134 50 134H0V98Z' fill='" + color + "'/></svg>"
@@ -22,7 +24,6 @@
 			var setAttributes = props.setAttributes;
 			var isTop = attributes.wavePosition === 'top';
 
-			// Get theme color palette
 			var themeColors = useSetting( 'color.palette' ) || [];
 
 			var classes = 'pmh-wave-container';
@@ -35,6 +36,7 @@
 				style: {
 					minHeight: attributes.minHeight,
 					'--pmh-wave-bg': waveSvg( attributes.waveColor ),
+					'--pmh-wave-height': attributes.waveHeight,
 				},
 			} );
 
@@ -55,22 +57,25 @@
 					null,
 					el(
 						PanelBody,
+						{ title: 'Container Settings', initialOpen: true },
+						el( UnitControl, {
+							label: 'Container Height',
+							value: attributes.minHeight,
+							onChange: function ( value ) {
+								setAttributes( { minHeight: value } );
+							},
+						} )
+					),
+					el(
+						PanelBody,
 						{ title: 'Wave Settings', initialOpen: true },
-						__experimentalUnitControl
-							? el( __experimentalUnitControl, {
-									label: 'Minimum Height',
-									value: attributes.minHeight,
-									onChange: function ( value ) {
-										setAttributes( { minHeight: value } );
-									},
-								} )
-							: el( components.TextControl, {
-									label: 'Minimum Height',
-									value: attributes.minHeight,
-									onChange: function ( value ) {
-										setAttributes( { minHeight: value } );
-									},
-								} ),
+						el( UnitControl, {
+							label: 'Wave Height',
+							value: attributes.waveHeight,
+							onChange: function ( value ) {
+								setAttributes( { waveHeight: value } );
+							},
+						} ),
 						el( ToggleControl, {
 							label: 'Wave on top',
 							help: isTop
@@ -116,6 +121,7 @@
 				style: {
 					minHeight: attributes.minHeight,
 					'--pmh-wave-bg': waveSvg( attributes.waveColor ),
+					'--pmh-wave-height': attributes.waveHeight,
 				},
 			} );
 

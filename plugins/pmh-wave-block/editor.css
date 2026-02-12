@@ -1,11 +1,11 @@
 .pmh-wave-container {
 	overflow: visible;
-	margin-bottom: 130px;
+	margin-bottom: var(--pmh-wave-height, 130px);
 }
 
 .pmh-wave-container--top {
 	margin-bottom: 0;
-	margin-top: 130px;
+	margin-top: var(--pmh-wave-height, 130px);
 }
 
 .pmh-wave-container__inner {
