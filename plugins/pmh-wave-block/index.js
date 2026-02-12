@@ -96,8 +96,9 @@
 							el( ColorPalette, {
 								colors: themeColors,
 								value: attributes.waveColor,
+								clearable: true,
 								onChange: function ( value ) {
-									setAttributes( { waveColor: value || '#FFF5EE' } );
+									setAttributes( { waveColor: value || 'transparent' } );
 								},
 							} )
 						)
