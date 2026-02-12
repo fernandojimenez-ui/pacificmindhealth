@@ -1,0 +1,39 @@
+# Ignore everything in wp-content by default
+*
+
+# But allow this .gitignore itself
+!.gitignore
+
+# ──────────────────────────────────────
+# THEMES
+# ──────────────────────────────────────
+# Allow the themes directory, then only astra-child
+!themes/
+themes/*
+!themes/astra-child/
+
+# ──────────────────────────────────────
+# PLUGINS
+# ──────────────────────────────────────
+# Allow the plugins directory, but ignore all plugins by default
+!plugins/
+plugins/*
+
+# To track a custom plugin, add a line like:
+# !plugins/my-custom-plugin/
+
+# ──────────────────────────────────────
+# ALWAYS IGNORED
+# ──────────────────────────────────────
+uploads/
+cache/
+cache-old/
+upgrade/
+upgrade-temp-backup/
+updraft/
+ai1wm-backups/
+wflogs/
+breeze-config/
+wp-rocket-config/
+mu-plugins/
+advanced-cache.php
