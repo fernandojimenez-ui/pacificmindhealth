@@ -10,6 +10,7 @@
 	padding: 2rem;
 }
 
+/* Wave pseudo-element (default: bottom) */
 .pmh-wave-container::before {
 	content: "";
 	width: 100%;
@@ -23,6 +24,13 @@
 	background-image: var(--pmh-wave-bg);
 	z-index: 0;
 	pointer-events: none;
+}
+
+/* Inverted: wave on top */
+.pmh-wave-container--top::before {
+	bottom: auto;
+	top: -0.3%;
+	transform: rotate(180deg);
 }
 
 @media (max-width: 850px) {

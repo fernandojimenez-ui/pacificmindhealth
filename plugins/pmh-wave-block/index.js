@@ -1,12 +1,13 @@
-( function ( blocks, element, blockEditor, components, compose ) {
+( function ( blocks, element, blockEditor, components ) {
 	var el = element.createElement;
-	var InnerBlocks = blockEditor.InnerBlocks;
 	var InspectorControls = blockEditor.InspectorControls;
 	var useBlockProps = blockEditor.useBlockProps;
 	var useInnerBlocksProps = blockEditor.useInnerBlocksProps;
+	var useSetting = blockEditor.useSetting;
 	var PanelBody = components.PanelBody;
-	var __experimentalUnitControl = components.__experimentalUnitControl;
 	var ColorPalette = components.ColorPalette;
+	var ToggleControl = components.ToggleControl;
+	var __experimentalUnitControl = components.__experimentalUnitControl;
 
 	var waveSvg = function ( color ) {
 		var encoded = encodeURIComponent(
@@ -19,9 +20,18 @@
 		edit: function ( props ) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
+			var isTop = attributes.wavePosition === 'top';
+
+			// Get theme color palette
+			var themeColors = useSetting( 'color.palette' ) || [];
+
+			var classes = 'pmh-wave-container';
+			if ( isTop ) {
+				classes += ' pmh-wave-container--top';
+			}
 
 			var blockProps = useBlockProps( {
-				className: 'pmh-wave-container',
+				className: classes,
 				style: {
 					minHeight: attributes.minHeight,
 					'--pmh-wave-bg': waveSvg( attributes.waveColor ),
@@ -61,9 +71,25 @@
 										setAttributes( { minHeight: value } );
 									},
 								} ),
+						el( ToggleControl, {
+							label: 'Wave on top',
+							help: isTop
+								? 'Wave is on the top edge.'
+								: 'Wave is on the bottom edge.',
+							checked: isTop,
+							onChange: function () {
+								setAttributes( {
+									wavePosition: isTop ? 'bottom' : 'top',
+								} );
+							},
+						} ),
 						el( 'div', { style: { marginTop: '16px' } },
-							el( 'label', { style: { display: 'block', marginBottom: '8px' } }, 'Wave Color' ),
+							el( 'label', {
+								className: 'components-base-control__label',
+								style: { display: 'block', marginBottom: '8px' },
+							}, 'Wave Color' ),
 							el( ColorPalette, {
+								colors: themeColors,
 								value: attributes.waveColor,
 								onChange: function ( value ) {
 									setAttributes( { waveColor: value || '#FFF5EE' } );
@@ -78,9 +104,15 @@
 
 		save: function ( props ) {
 			var attributes = props.attributes;
+			var isTop = attributes.wavePosition === 'top';
+
+			var classes = 'pmh-wave-container';
+			if ( isTop ) {
+				classes += ' pmh-wave-container--top';
+			}
 
 			var blockProps = useBlockProps.save( {
-				className: 'pmh-wave-container',
+				className: classes,
 				style: {
 					minHeight: attributes.minHeight,
 					'--pmh-wave-bg': waveSvg( attributes.waveColor ),
@@ -98,6 +130,5 @@
 	window.wp.blocks,
 	window.wp.element,
 	window.wp.blockEditor,
-	window.wp.components,
-	window.wp.compose
+	window.wp.components
 );

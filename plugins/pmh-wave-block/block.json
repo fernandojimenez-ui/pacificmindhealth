@@ -27,6 +27,10 @@
         "waveColor": {
             "type": "string",
             "default": "#FFF5EE"
+        },
+        "wavePosition": {
+            "type": "string",
+            "default": "bottom"
         }
     },
     "editorScript": "file:./index.js",
