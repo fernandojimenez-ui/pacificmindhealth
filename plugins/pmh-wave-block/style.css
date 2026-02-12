@@ -1,6 +1,7 @@
 .pmh-wave-container {
 	position: relative;
 	min-height: 40vh;
+	overflow: hidden;
 }
 
 /* Full-width alignment */
@@ -13,7 +14,7 @@
 
 .pmh-wave-container__inner {
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 	padding: 2rem;
 }
 
@@ -25,11 +26,11 @@
 	position: absolute;
 	bottom: -0.3%;
 	left: 0;
-	background-size: auto;
+	background-size: var(--pmh-wave-width, auto);
 	background-repeat: repeat no-repeat;
 	background-position: 20vw bottom;
 	background-image: var(--pmh-wave-bg);
-	z-index: 0;
+	z-index: 3;
 	pointer-events: none;
 }
 

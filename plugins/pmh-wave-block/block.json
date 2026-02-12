@@ -41,9 +41,21 @@
             "type": "string",
             "default": "130px"
         },
+        "waveWidth": {
+            "type": "string",
+            "default": "auto"
+        },
         "wavePosition": {
             "type": "string",
             "default": "bottom"
+        },
+        "backgroundImageUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "backgroundImageId": {
+            "type": "number",
+            "default": 0
         }
     },
     "editorScript": "file:./index.js",

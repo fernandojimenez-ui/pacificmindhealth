@@ -1,12 +1,15 @@
 ( function ( blocks, element, blockEditor, components ) {
 	var el = element.createElement;
 	var InspectorControls = blockEditor.InspectorControls;
+	var MediaUpload = blockEditor.MediaUpload;
+	var MediaUploadCheck = blockEditor.MediaUploadCheck;
 	var useBlockProps = blockEditor.useBlockProps;
 	var useInnerBlocksProps = blockEditor.useInnerBlocksProps;
 	var useSetting = blockEditor.useSetting;
 	var PanelBody = components.PanelBody;
 	var ColorPalette = components.ColorPalette;
 	var ToggleControl = components.ToggleControl;
+	var Button = components.Button;
 	var __experimentalUnitControl = components.__experimentalUnitControl;
 
 	var UnitControl = __experimentalUnitControl || components.TextControl;
@@ -17,6 +20,22 @@
 		);
 		return 'url("data:image/svg+xml;utf8,' + encoded + '")';
 	};
+
+	function getContainerStyle( attributes ) {
+		var style = {
+			minHeight: attributes.minHeight,
+			'--pmh-wave-bg': waveSvg( attributes.waveColor ),
+			'--pmh-wave-height': attributes.waveHeight,
+			'--pmh-wave-width': attributes.waveWidth,
+		};
+		if ( attributes.backgroundImageUrl ) {
+			style.backgroundImage = 'url(' + attributes.backgroundImageUrl + ')';
+			style.backgroundSize = 'cover';
+			style.backgroundPosition = 'center';
+			style.backgroundRepeat = 'no-repeat';
+		}
+		return style;
+	}
 
 	blocks.registerBlockType( 'pmh/wave-container', {
 		edit: function ( props ) {
@@ -30,14 +49,13 @@
 			if ( isTop ) {
 				classes += ' pmh-wave-container--top';
 			}
+			if ( attributes.backgroundImageUrl ) {
+				classes += ' pmh-wave-container--has-bg';
+			}
 
 			var blockProps = useBlockProps( {
 				className: classes,
-				style: {
-					minHeight: attributes.minHeight,
-					'--pmh-wave-bg': waveSvg( attributes.waveColor ),
-					'--pmh-wave-height': attributes.waveHeight,
-				},
+				style: getContainerStyle( attributes ),
 			} );
 
 			var innerBlocksProps = useInnerBlocksProps(
@@ -64,7 +82,62 @@
 							onChange: function ( value ) {
 								setAttributes( { minHeight: value } );
 							},
-						} )
+						} ),
+						el( 'div', { style: { marginTop: '16px' } },
+							el( 'label', {
+								className: 'components-base-control__label',
+								style: { display: 'block', marginBottom: '8px' },
+							}, 'Background Image' ),
+							el( MediaUploadCheck, null,
+								el( MediaUpload, {
+									onSelect: function ( media ) {
+										setAttributes( {
+											backgroundImageUrl: media.url,
+											backgroundImageId: media.id,
+										} );
+									},
+									allowedTypes: [ 'image' ],
+									value: attributes.backgroundImageId,
+									render: function ( obj ) {
+										if ( attributes.backgroundImageUrl ) {
+											return el( 'div', null,
+												el( 'img', {
+													src: attributes.backgroundImageUrl,
+													style: {
+														maxWidth: '100%',
+														height: 'auto',
+														marginBottom: '8px',
+														borderRadius: '4px',
+													},
+												} ),
+												el( 'div', { style: { display: 'flex', gap: '8px' } },
+													el( Button, {
+														onClick: obj.open,
+														variant: 'secondary',
+														size: 'small',
+													}, 'Replace' ),
+													el( Button, {
+														onClick: function () {
+															setAttributes( {
+																backgroundImageUrl: '',
+																backgroundImageId: 0,
+															} );
+														},
+														variant: 'tertiary',
+														size: 'small',
+														isDestructive: true,
+													}, 'Remove' )
+												)
+											);
+										}
+										return el( Button, {
+											onClick: obj.open,
+											variant: 'secondary',
+										}, 'Select Image' );
+									},
+								} )
+							)
+						)
 					),
 					el(
 						PanelBody,
@@ -74,6 +147,14 @@
 							value: attributes.waveHeight,
 							onChange: function ( value ) {
 								setAttributes( { waveHeight: value } );
+							},
+						} ),
+						el( UnitControl, {
+							label: 'Wave Width',
+							help: 'Controls how wide each wave is. Use "auto" for default, or a value like 600px for more frequent waves or 1800px for wider waves.',
+							value: attributes.waveWidth,
+							onChange: function ( value ) {
+								setAttributes( { waveWidth: value } );
 							},
 						} ),
 						el( ToggleControl, {
@@ -116,14 +197,13 @@
 			if ( isTop ) {
 				classes += ' pmh-wave-container--top';
 			}
+			if ( attributes.backgroundImageUrl ) {
+				classes += ' pmh-wave-container--has-bg';
+			}
 
 			var blockProps = useBlockProps.save( {
 				className: classes,
-				style: {
-					minHeight: attributes.minHeight,
-					'--pmh-wave-bg': waveSvg( attributes.waveColor ),
-					'--pmh-wave-height': attributes.waveHeight,
-				},
+				style: getContainerStyle( attributes ),
 			} );
 
 			var innerBlocksProps = useInnerBlocksProps.save( {
