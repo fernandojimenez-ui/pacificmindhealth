@@ -1,0 +1,8 @@
+.pmh-wave-container {
+	overflow: visible;
+	margin-bottom: 130px;
+}
+
+.pmh-wave-container__inner {
+	min-height: 100px;
+}

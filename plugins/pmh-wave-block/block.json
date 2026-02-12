@@ -1,0 +1,35 @@
+{
+    "apiVersion": 3,
+    "name": "pmh/wave-container",
+    "version": "1.0.0",
+    "title": "Wave Container",
+    "category": "design",
+    "icon": "tide",
+    "description": "A container block with a wavy bottom edge.",
+    "keywords": [ "wave", "container", "section" ],
+    "supports": {
+        "html": false,
+        "align": [ "wide", "full" ],
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "padding": true,
+            "margin": true
+        }
+    },
+    "attributes": {
+        "minHeight": {
+            "type": "string",
+            "default": "40vh"
+        },
+        "waveColor": {
+            "type": "string",
+            "default": "#FFF5EE"
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./editor.css",
+    "style": "file:./style.css"
+}

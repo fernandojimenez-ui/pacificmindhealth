@@ -22,6 +22,7 @@ plugins/*
 # To track a custom plugin, add a line like:
 # !plugins/my-custom-plugin/
 !plugins/pmh-test-plugin/
+!plugins/pmh-wave-block/
 
 # ──────────────────────────────────────
 # ALWAYS IGNORED

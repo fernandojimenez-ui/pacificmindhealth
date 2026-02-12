@@ -1,0 +1,32 @@
+.pmh-wave-container {
+	position: relative;
+	background-color: #20B2AA;
+	min-height: 40vh;
+}
+
+.pmh-wave-container__inner {
+	position: relative;
+	z-index: 1;
+	padding: 2rem;
+}
+
+.pmh-wave-container::before {
+	content: "";
+	width: 100%;
+	height: 130px;
+	position: absolute;
+	bottom: -0.3%;
+	left: 0;
+	background-size: auto;
+	background-repeat: repeat no-repeat;
+	background-position: 20vw bottom;
+	background-image: var(--pmh-wave-bg);
+	z-index: 0;
+	pointer-events: none;
+}
+
+@media (max-width: 850px) {
+	.pmh-wave-container::before {
+		height: 65px;
+	}
+}
