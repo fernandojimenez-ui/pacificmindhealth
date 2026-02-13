@@ -2,7 +2,7 @@
 /**
  * Plugin Name: PMH Wave Block
  * Description: A Gutenberg container block with a wavy bottom edge. (Deployed from staging branch)
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Fernando Jimenez
  * Requires at least: 6.0
  * Requires PHP: 7.4
