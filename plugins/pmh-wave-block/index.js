@@ -233,6 +233,9 @@
 			if ( attributes.backgroundImageUrl ) {
 				classes += ' pmh-wave-container--has-bg';
 			}
+			if ( attributes.overlayOpacity > 0 ) {
+				classes += ' pmh-wave-container--has-overlay';
+			}
 
 			var blockProps = useBlockProps.save( {
 				className: classes,
