@@ -56,6 +56,14 @@
         "backgroundImageId": {
             "type": "number",
             "default": 0
+        },
+        "overlayColor": {
+            "type": "string",
+            "default": "#000000"
+        },
+        "overlayOpacity": {
+            "type": "number",
+            "default": 0
         }
     },
     "editorScript": "file:./index.js",

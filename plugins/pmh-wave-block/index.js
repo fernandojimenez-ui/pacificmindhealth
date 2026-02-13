@@ -10,6 +10,7 @@
 	var ColorPalette = components.ColorPalette;
 	var ToggleControl = components.ToggleControl;
 	var Button = components.Button;
+	var RangeControl = components.RangeControl;
 	var __experimentalUnitControl = components.__experimentalUnitControl;
 
 	var UnitControl = __experimentalUnitControl || components.TextControl;
@@ -34,6 +35,10 @@
 			style.backgroundPosition = 'center';
 			style.backgroundRepeat = 'no-repeat';
 		}
+		if ( attributes.overlayOpacity > 0 ) {
+			style[ '--pmh-overlay-color' ] = attributes.overlayColor;
+			style[ '--pmh-overlay-opacity' ] = attributes.overlayOpacity / 100;
+		}
 		return style;
 	}
 
@@ -51,6 +56,9 @@
 			}
 			if ( attributes.backgroundImageUrl ) {
 				classes += ' pmh-wave-container--has-bg';
+			}
+			if ( attributes.overlayOpacity > 0 ) {
+				classes += ' pmh-wave-container--has-overlay';
 			}
 
 			var blockProps = useBlockProps( {
@@ -137,7 +145,32 @@
 									},
 								} )
 							)
-						)
+						),
+						attributes.backgroundImageUrl
+							? el( 'div', { style: { marginTop: '16px' } },
+								el( 'label', {
+									className: 'components-base-control__label',
+									style: { display: 'block', marginBottom: '8px' },
+								}, 'Overlay Color' ),
+								el( ColorPalette, {
+									colors: themeColors,
+									value: attributes.overlayColor,
+									onChange: function ( value ) {
+										setAttributes( { overlayColor: value || '#000000' } );
+									},
+								} ),
+								el( RangeControl, {
+									label: 'Overlay Opacity',
+									value: attributes.overlayOpacity,
+									onChange: function ( value ) {
+										setAttributes( { overlayOpacity: value } );
+									},
+									min: 0,
+									max: 100,
+									step: 5,
+								} )
+							)
+							: null
 					),
 					el(
 						PanelBody,

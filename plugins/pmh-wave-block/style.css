@@ -12,6 +12,17 @@
 	margin-right: calc(50% - 50vw);
 }
 
+/* Overlay */
+.pmh-wave-container--has-overlay::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-color: var(--pmh-overlay-color, #000000);
+	opacity: var(--pmh-overlay-opacity, 0);
+	z-index: 1;
+	pointer-events: none;
+}
+
 .pmh-wave-container__inner {
 	position: relative;
 	z-index: 2;
